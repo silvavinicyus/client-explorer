@@ -3,8 +3,8 @@ import { AbstractEntity } from "../abstractEntity";
 import { ITimestamps } from "../timestamps";
 
 export interface IClientEntity extends ITimestamps {
-  id?: number
-  uuid?: string
+  id: number
+  uuid: string
   name: string
   email: string
   phone: string
