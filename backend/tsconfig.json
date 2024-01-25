@@ -13,12 +13,12 @@
     "sourceMap": true,
     "target": "ES2019",
     "outDir": "lib",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    
   },
   "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": [
-    "node_modules/**/*",
-    ".serverless/**/*",
+    "node_modules/**/*",    
     ".webpack/**/*",
     "_warmup/**/*",
     ".vscode/**/*"
