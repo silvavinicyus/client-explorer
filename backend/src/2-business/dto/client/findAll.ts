@@ -1,7 +1,21 @@
-import { IClientEntity, IClientEntityKeys } from "@domain/entities/client";
-import { IPaginatedResponse, IUseCaseOptions } from "../useCaseOptions";
-import { Either } from "@shared/either";
+import { IClientEntity } from "@domain/entities/client";
 import { IError } from "@shared/IError";
+import { Either } from "@shared/either";
+import { IPaginatedResponse, IUseCaseOptions } from "../useCaseOptions";
 
-export type IInputFindAllClientsDto = IUseCaseOptions<keyof IClientEntityKeys, string | number>
-export type IOutputFindAllClientsDto = Either<IError, IPaginatedResponse<IClientEntity>>
+export type IInputFindAllClientsDto = IUseCaseOptions<
+  keyof Pick<
+    IClientEntity, 
+      'name' 
+      | 'email' 
+      | 'phone' 
+      | 'id' 
+      | 'uuid'
+    >, 
+  string | number
+>
+
+export type IOutputFindAllClientsDto = Either<
+  IError, 
+  IPaginatedResponse<IClientEntity>
+>
