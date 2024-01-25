@@ -13,9 +13,7 @@ export abstract class AbstractOperator<I, O> {
         input.trim()
       }
       input.validate()
-    } catch (error) {
-      console.info('error________________________', error)
-      console.info('error________________________', error[0])
+    } catch (error) {      
 
       if (
         error instanceof Array &&
@@ -32,8 +30,7 @@ export abstract class AbstractOperator<I, O> {
           errors: Object.entries(constraints).map(
             ([, errorMessage]) => errorMessage
           ),
-        }))
-        console.log(JSON.stringify(details))
+        }))        
         throw validationError(details)
       }
       throw error

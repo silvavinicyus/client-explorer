@@ -34,7 +34,7 @@ export class DeleteClientOperator extends AbstractOperator<InputDeleteClient, IO
     const clientResult = await this.deleteClient.exec({
       id: client.value.id
     })
-
+    
     return clientResult
   }
 

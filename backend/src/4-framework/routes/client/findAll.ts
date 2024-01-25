@@ -11,19 +11,19 @@ export class FindAllClientsHandler {
       const operator = container.get(FindAllClientsOperator)
 
       const input = new InputFindAllClients({
-        page: +request.query.page,
-        count: +request.query.count,
+        page: +request.query.page || 0,
+        count: +request.query.count || 10,
         contains: [
           {
             column: 'email',
-            value: String(request.query.email)
+            value: request.query.email ? String(request.query.email) : undefined
           },
           {
             column: 'phone',
-            value: String(request.query.phone)
+            value: request.query.phone ? String(request.query.phone) : undefined
           },{
             column: 'name',
-            value: String(request.query.name)
+            value: request.query.name ? String(request.query.name) : undefined
           }
         ]
       })

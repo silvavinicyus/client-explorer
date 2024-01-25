@@ -1,19 +1,13 @@
-import { Sequelize, Options } from 'sequelize'
-import sequelizeConfig from '@root/sequelize.config.js'
+import { Pool } from "pg";
+import dotnev from 'dotenv'
 
-const connectionOptions: Options = {
-  ...sequelizeConfig,
-  define: { underscored: true, omitNull: false, raw: true },
-  pool: {
-    max: 2,
-    min: 0,
-    idle: 0,
-    acquire: 3000,
-    evict: 1500,
-  },
-  dialectOptions: {
-    connectTimeout: 15000,
-  },
-}
+dotnev.config()
+const db = new Pool({
+  user: process.env.PG_USERNAME,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DB,
+  password: process.env.PG_PASSWORD,
+  port: +process.env.PG_PORT
+});
 
-export const sequelize = new Sequelize(connectionOptions)
+export { db };

@@ -17,7 +17,7 @@ export class DeleteClientUseCase implements IAbstractUseCase<IInputDeleteClientD
   ): Promise<IOutputDeleteClientDto> {
     try {
       await this.clientRepository.delete(props)
-
+      
       return right(void 0)
     } catch(err) {
       console.error(err)

@@ -19,8 +19,8 @@ export class DeleteClientHandler {
       if (client.isLeft()) {
         throw client.value
       }      
-
-      return response.status(204)
+            
+      return response.status(204).json()
     } catch(err) {
       if (err instanceof IError) {
         return response.status(err.statusCode).json(err.body)
