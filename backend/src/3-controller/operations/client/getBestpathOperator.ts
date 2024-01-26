@@ -2,7 +2,7 @@ import { ITravelingSalesmanServiceToken, ITravelingSalesmangService } from "@bus
 import { FindAllClientsUseCase } from "@business/useCases/client/findAllClientUseCase";
 import { IClientEntity } from "@domain/entities/client";
 import { IError } from "@shared/IError";
-import { Either, left } from "@shared/either";
+import { Either, left, right } from "@shared/either";
 import { inject, injectable } from "inversify";
 import { AbstractOperator } from "../abstractOperator";
 
@@ -34,9 +34,9 @@ export class GetBestPathOperator extends AbstractOperator<void, Either<IError, I
 
     const clientsRoute = this.travelingSalesmanService.bestPath(clients.value.items) 
 
-    console.log(clientsRoute)
+    const clientsEntitiesRoute = clientsRoute.map((client) => clients.value.items.find((entity) => entity.id === client.id))
 
-    return void 0
+    return right(clientsEntitiesRoute)
   }
 
 }

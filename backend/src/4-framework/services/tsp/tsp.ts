@@ -1,15 +1,10 @@
-import { ITravelingSalesmangService } from "@business/services/tsp/iTsp";
+import { IClientAddress, ITravelingSalesmangService } from "@business/services/tsp/iTsp";
 import { IClientEntity } from "@domain/entities/client";
 import { injectable } from "inversify";
 
-interface IClientAddress {
-  id: number
-  x: number
-  y: number
-}
 @injectable()
 export class TravelingSalesmanService implements ITravelingSalesmangService {  
-  bestPath(clients: IClientEntity[]): IClientEntity[] {
+  bestPath(clients: IClientEntity[]): IClientAddress[] {
     let clientsAdress: IClientAddress[] = clients.map((client) => {
       const address = client.address.replace(' ', '').split(',')
       return {
@@ -19,7 +14,6 @@ export class TravelingSalesmanService implements ITravelingSalesmangService {
       }
     })
     
-
     const company: IClientAddress = {
       id: 0,
       x: 0, 
@@ -37,7 +31,9 @@ export class TravelingSalesmanService implements ITravelingSalesmangService {
       clientsAdress = clientsAdress.filter((client) => client !== nextClient)
     }
 
-    return clients
+    route.shift()
+
+    return route
   }
 
   // Metodo euclidiano para encontrar a distancia entre dois pontos
@@ -59,9 +55,9 @@ export class TravelingSalesmanService implements ITravelingSalesmangService {
       if (distanceBetween < shortestDistance) {
         shortestDistance = distanceBetween
         closestNeighbor = client
-      }
+      }      
     })
-        
+           
     return closestNeighbor
   }
 }
