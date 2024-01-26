@@ -8,6 +8,7 @@ export class ClientMapper {
       name: row['name'],
       email: row['email'],
       phone: row['phone'],
+      address: row['address'],
       created_at: row['name'],
       updated_at: row['updated_at'],
     }
@@ -25,7 +26,8 @@ export class ClientMapper {
         name: row['name'],
         email: row['email'],
         phone: row['phone'],
-        created_at: row['name'],
+        address: row['address'],
+        created_at: row['created_at'],
         updated_at: row['updated_at'],
       }
 

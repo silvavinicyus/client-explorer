@@ -13,7 +13,8 @@ export class CreateClientHandler {
       const input = new InputCreateClient({
         email: request.body.email,
         name: request.body.name,
-        phone: request.body.phone
+        phone: request.body.phone,
+        address: request.body.address
       })
 
       const client = await operator.run(input)

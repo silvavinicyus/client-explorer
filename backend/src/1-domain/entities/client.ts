@@ -8,9 +8,10 @@ export interface IClientEntity extends ITimestamps {
   name: string
   email: string
   phone: string
+  address: string  
 }
 
-export type IInputClientEntity = Pick<IClientEntity, 'email' | 'name' | 'phone'>
+export type IInputClientEntity = Pick<IClientEntity, 'email' | 'name' | 'phone' | 'address'>
 
 export type IClientEntityKeys = Pick<IClientEntity, 'email' | 'name' | 'id' | 'uuid'>
 

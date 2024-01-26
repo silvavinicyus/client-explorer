@@ -15,6 +15,7 @@ export class UpdateClientHandler {
         email: request.body.email,
         name: request.body.name,
         phone: request.body.phone,
+        address: request.body.address
       })
 
       const client = await operator.run(input)

@@ -6,7 +6,9 @@ export type IInputUpdateClientDto = Partial<
   Pick<IClientEntity, 
     'email' 
     | 'name'
-    | 'phone'>
+    | 'phone'
+    | 'address'
   >
+>
 
 export type IOutputUpdateClientDto = Either<IError, Partial<IClientEntity>>

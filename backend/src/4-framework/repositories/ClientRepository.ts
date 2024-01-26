@@ -23,9 +23,9 @@ export class ClientRepository implements IClientRepository {
   }
 
   async create(input: IClientEntity): Promise<IClientEntity> {    
-    const query = 'INSERT INTO clients(uuid, name, email, phone, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id'    
+    const query = 'INSERT INTO clients(uuid, name, email, phone, address, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id'    
     
-    const parameters = [input.uuid, input.name, input.email, input.phone, input.created_at, input.updated_at]        
+    const parameters = [input.uuid, input.name, input.email, input.phone, input.address, input.created_at, input.updated_at]        
 
     const result = await this.queryExecutor({query, parameters})
     
