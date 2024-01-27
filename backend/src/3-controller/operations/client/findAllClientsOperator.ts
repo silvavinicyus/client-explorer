@@ -17,7 +17,7 @@ export class FindAllClientsOperator extends AbstractOperator<InputFindAllClients
     input: InputFindAllClients
   ): Promise<IOutputFindAllClientsDto> {
     this.exec(input)
-
+        
     const clients = await this.findAllClients.exec({
       filters: {
         contains: input.contains,        
@@ -27,7 +27,6 @@ export class FindAllClientsOperator extends AbstractOperator<InputFindAllClients
         page: input.page
       }
     })
-
 
     return clients
   }

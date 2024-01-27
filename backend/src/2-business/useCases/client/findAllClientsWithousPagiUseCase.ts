@@ -1,20 +1,21 @@
-import { IInputFindAllClientsDto, IOutputFindAllClientsDto } from "@business/dto/client/findAll";
 import { IClientRepository, IClientRepositoryToken } from "@business/repositories/client/iClientRepository";
 import { inject, injectable } from "inversify";
 import { IAbstractUseCase } from "../abstractUseCase";
-import { left, right } from "@shared/either";
+import { Either, left, right } from "@shared/either";
 import { ClientErrors } from "@business/module/errors/clientErrors";
+import { IClientEntity } from "@domain/entities/client";
+import { IError } from "@shared/IError";
 
 @injectable()
-export class FindAllClientsUseCase implements IAbstractUseCase<IInputFindAllClientsDto, IOutputFindAllClientsDto> {
+export class FindAllClientsWithoutPaginationUseCase implements IAbstractUseCase<void, Either<IError, IClientEntity[]>> {
   constructor(
     @inject(IClientRepositoryToken)
     private clientRepository: IClientRepository
   ){}
 
-  async exec(props: IInputFindAllClientsDto): Promise<IOutputFindAllClientsDto> {
+  async exec(): Promise<Either<IError, IClientEntity[]>> {
     try {          
-      const clients = await this.clientRepository.findAll(props)
+      const clients = await this.clientRepository.findAllWithoutPagination()
       
       return right(clients)
     } catch(err) {

@@ -15,11 +15,23 @@ interface IQueryExecutor {
 }
 @injectable()
 export class ClientRepository implements IClientRepository {    
-
   db: Pool;
 
   constructor(){
-    this.db = db
+    this.db = db      
+  }     
+
+  async findAllWithoutPagination(): Promise<IClientEntity[]> {
+    const query = `SELECT * FROM clients ORDER BY created_at`   
+
+    const result = await this.queryExecutor({
+      query: query,
+      parameters: []
+    })              
+
+    const clients = ClientMapper.toEntityArray(result.rows)
+
+    return clients
   }
 
   async create(input: IClientEntity): Promise<IClientEntity> {    
@@ -51,20 +63,24 @@ export class ClientRepository implements IClientRepository {
     return client
   }
 
-  async findAll(input: IInputFindAllClientsDto): Promise<IPaginatedResponse<IClientEntity>> {    
+  async findAll(input: IInputFindAllClientsDto): Promise<IPaginatedResponse<IClientEntity>> {        
     const offset = (input.pagination.page) * input.pagination.count;
-    const { where, parameters } = this.containsWhereBuilder(input.filters.contains)
 
-    const query = `SELECT * FROM clients ${where} ORDER BY created_at LIMIT $${parameters.length+1} OFFSET $${parameters.length+2}`
+    const { where, parameters } = this.containsWhereBuilder(input.filters.contains)    
 
-    const queryParameters = [...parameters, input.pagination.count, offset]
+    const query = `SELECT * FROM clients ${where} ORDER BY created_at LIMIT $${parameters.length+1} OFFSET $${parameters.length+2}`    
+    
+    const queryParameters = [...parameters, input.pagination.count, offset]    
 
-    const result = await this.queryExecutor({query, parameters: queryParameters})      
+    const result = await this.queryExecutor({query, parameters: queryParameters})
+
+    const countQuery = 'SELECT count(id) as count from clients'
+    const countResult = await this.queryExecutor({query: countQuery, parameters: []})    
 
     const clients = ClientMapper.toEntityArray(result.rows)
 
     return {
-      count: clients.length,
+      count: +countResult.rows[0].count, 
       items: clients,
       page: input.pagination.page,
       perPage: input.pagination.count,
@@ -72,7 +88,6 @@ export class ClientRepository implements IClientRepository {
   }
   
   async update(input: IInputUpdateClient): Promise<Partial<IClientEntity>> {
-
     const { set, parameters } = this.getSetClauseBuilder(input)    
 
     const query = `UPDATE clients SET ${set} WHERE ${input.updateWhere.column} = $${parameters.length+1} RETURNING *`
@@ -95,10 +110,26 @@ export class ClientRepository implements IClientRepository {
     return void 0
   }
 
-  async queryExecutor({query, parameters}: IQueryExecutor): Promise<QueryResult<any>> {    
-    await db.connect()    
-    const result = await this.db.query(query, parameters)        
-    return result
+  // async queryExecutor({query, parameters}: IQueryExecutor): Promise<QueryResult<any>> {                         
+  //   await db.connect()        
+  //   const result = await this.db.query(query, parameters)                
+  //   return result
+  // }
+
+  async queryExecutor({query, parameters}: IQueryExecutor): Promise<QueryResult<any>> {
+    let pool;
+  
+    try {
+      pool = await this.db.connect();
+      const result = await pool.query(query, parameters);
+      return result;
+    } catch(err) {
+      console.error(err)
+    } finally {
+      if (pool) {
+        pool.release();
+      }
+    }
   }
 
   containsWhereBuilder(data: any): {where: string, parameters: any[]} {
@@ -114,8 +145,7 @@ export class ClientRepository implements IClientRepository {
     where = filteredContains.reduce((acc, field, index) => {
       return index <= 0 ? `WHERE ${field.column} LIKE $${index+1}` : acc +  ` AND ${field.column} LIKE $${index+1}`
     }, '')
-    
-    
+        
     return {where, parameters}
   }
 

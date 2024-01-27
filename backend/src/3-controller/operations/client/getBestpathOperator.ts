@@ -1,5 +1,5 @@
 import { ITravelingSalesmanServiceToken, ITravelingSalesmangService } from "@business/services/tsp/iTsp";
-import { FindAllClientsUseCase } from "@business/useCases/client/findAllClientUseCase";
+import { FindAllClientsWithoutPaginationUseCase } from "@business/useCases/client/findAllClientsWithousPagiUseCase";
 import { IClientEntity } from "@domain/entities/client";
 import { IError } from "@shared/IError";
 import { Either, left, right } from "@shared/either";
@@ -9,8 +9,8 @@ import { AbstractOperator } from "../abstractOperator";
 @injectable()
 export class GetBestPathOperator extends AbstractOperator<void, Either<IError, IClientEntity[]>> {
   constructor(
-    @inject(FindAllClientsUseCase)
-    private findAllClients: FindAllClientsUseCase,
+    @inject(FindAllClientsWithoutPaginationUseCase)
+    private findAllClients: FindAllClientsWithoutPaginationUseCase,
     @inject(ITravelingSalesmanServiceToken)
     private travelingSalesmanService: ITravelingSalesmangService
   ){
@@ -18,23 +18,15 @@ export class GetBestPathOperator extends AbstractOperator<void, Either<IError, I
   }
 
   async run(): Promise<Either<IError, IClientEntity[]>> {    
-    const clients = await this.findAllClients.exec({
-      filters: {
-        contains: []
-      },
-      pagination: {
-        page: 0,
-        count: 10
-      }
-    })
+    const clients = await this.findAllClients.exec()
 
     if (clients.isLeft()) {
       return left(clients.value)
     }
 
-    const clientsRoute = this.travelingSalesmanService.bestPath(clients.value.items) 
+    const clientsRoute = this.travelingSalesmanService.bestPath(clients.value) 
 
-    const clientsEntitiesRoute = clientsRoute.map((client) => clients.value.items.find((entity) => entity.id === client.id))
+    const clientsEntitiesRoute = clientsRoute.map((client) => clients.value.find((entity) => entity.id === client.id))
 
     return right(clientsEntitiesRoute)
   }

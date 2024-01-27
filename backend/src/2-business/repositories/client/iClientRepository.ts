@@ -18,6 +18,7 @@ export interface IClientRepository {
   create(input: IClientEntity): Promise<IClientEntity>
   findBy(input: IInputFindClientByDto): Promise<IClientEntity>
   findAll(input: IInputFindAllClientsDto): Promise<IPaginatedResponse<IClientEntity>>
+  findAllWithoutPagination(): Promise<IClientEntity[]>
   update(input: IInputUpdateClient): Promise<Partial<IClientEntity>>
   delete(input: IInputDeleteClientDto): Promise<void>
 }
