@@ -16,6 +16,14 @@ export interface IFindAllClientsResponse {
   count: number
 }
 
+export interface IFindAllClientsQueryStringProps {
+  page: number
+  count: number
+  name?: string
+  email?: string
+  phone?: string
+}
+
 export interface ICreateClientBody {
   name: string
   phone: string

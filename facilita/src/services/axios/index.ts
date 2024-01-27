@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig } from "axios";
-import { IClient, ICreateClientBody, IFindAllClientsResponse, IUpdateClientBody } from "../../interfaces/iClient";
+import { IClient, ICreateClientBody, IFindAllClientsQueryStringProps, IFindAllClientsResponse, IUpdateClientBody } from "../../interfaces/iClient";
 
 export interface IAxiosResponse<T> {
   data: T;
@@ -20,8 +20,19 @@ const facilitaApi = () => {
     return api.post('/clients', body)
   } 
 
-  async function findAllClients(): Promise<IAxiosResponse<IFindAllClientsResponse>> {
-    return api.get('/clients')
+  async function findAllClients(props: IFindAllClientsQueryStringProps): Promise<IAxiosResponse<IFindAllClientsResponse>> {      
+    const keys = Object.keys(props)
+
+    const queryParams = keys.reduce((acc, element, index) => {
+      if(index === 0) {
+        return acc + `${element}=${props[element as keyof IFindAllClientsQueryStringProps]}`
+      }
+      return acc+`&${element}=${props[element as keyof IFindAllClientsQueryStringProps]}`
+    }, '')
+
+    console.log(queryParams)
+
+    return api.get(`/clients?${queryParams}`)
   }
 
   async function getRoutes(): Promise<IAxiosResponse<IClient[]>> {

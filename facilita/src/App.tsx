@@ -5,9 +5,10 @@ import 'react-responsive-modal/styles.css';
 import './App.css';
 import { CreateClient } from './components/clients/creation';
 import { ClientsTable } from './components/clients/table';
-import { IClient } from './interfaces/iClient';
+import { IClient, IFindAllClientsQueryStringProps } from './interfaces/iClient';
 import { facilitaApi } from './services/axios';
 import { PathsToClient } from './components/clients/Path';
+import { SearchFilter } from './components/searchFilter';
 
 function App() {  
 
@@ -17,8 +18,8 @@ function App() {
 
   const [openRoutesModal, setOpenRoutesModal] = useState(false);
 
-  const fetchClientData = async () => {
-    const response = await findAllClients()
+  const fetchClientData = async (props: IFindAllClientsQueryStringProps) => {
+    const response = await findAllClients(props)
 
     if(response.status != 200)  {
       return alert('Erro ao carregar clientes!')
@@ -29,7 +30,10 @@ function App() {
 
   useEffect(() => {
     try {      
-      fetchClientData()
+      fetchClientData({
+        page: 0,
+        count: 10
+      })
     } catch(err) {
       console.log(err)
       alert("Erro ao carregar clientes")
@@ -42,15 +46,53 @@ function App() {
 
       if (response.status !== 204) alert('Erro ao deletar cliente!')
 
-      fetchClientData()
+      fetchClientData({
+        page: 0,
+        count: 10
+      })
     } catch(err) {
       alert('Erro ao deletar cliente!')
     }
   }
 
   const handleCreate = async() => {
-    fetchClientData()
+    fetchClientData({
+      page: 0,
+      count: 10
+    })
     onCloseCreateModal()
+  }
+
+  const handleFilter = async ({target, value}: {target: string, value: string}) => {
+    try {
+      switch (target){
+        case 'name':
+          fetchClientData({
+            count: 10,
+            page: 0,
+            name: value
+          })
+          break
+        case 'email':
+          fetchClientData({
+            count: 10,
+            page: 0,
+            email: value
+          })
+          break
+        case 'phone':
+          fetchClientData({
+            count: 10,
+            page: 0,
+            phone: value
+          })
+          break
+      }
+        
+    } catch(err) {
+      console.error(err)
+      alert("Erro ao filtrar clientes!")
+    }
   }
 
   const onOpenCreateModal = () => setOpenCreateModal(true);
@@ -67,7 +109,8 @@ function App() {
         <button onClick={onOpenCreateModal}> Adicionar Cliente </button>
         <button onClick={onOpenRoutesModal}> Gerar rota </button>
       </div>      
-      
+
+      <SearchFilter onSearch={handleFilter}/> 
       <ClientsTable clients={clients} onDeleteClient={handleDelete}/>
 
       <Modal classNames={{modal: 'modal'}} open={openCreateModal} onClose={onCloseCreateModal} center>
