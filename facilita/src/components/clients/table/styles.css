@@ -1,0 +1,35 @@
+th {
+  font-weight: bold;
+  text-align: center;
+}
+
+tr, td {  
+  text-align: center;
+  height: 4vh;    
+}
+
+
+td, th {
+  padding-left: 1.5vb;
+  padding-right: 1.5vb;  
+}
+
+table {
+  width: 100%;  
+}
+
+table tr {
+  background-color: antiquewhite;
+}
+
+table tr:nth-child(odd) td{
+  background-color: aquamarine;
+}
+
+table tr:nth-child(even) td{
+  background-color: antiquewhite;
+}
+
+table tr td th {
+  border-color: #3498DB;
+}

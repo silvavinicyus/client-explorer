@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
+import './App.css';
+import { CreateClient } from './components/clients/creation';
+import { ClientsTable } from './components/clients/table';
+import { IClient } from './interfaces/iClient';
+import { facilitaApi } from './services/axios';
+import { PathsToClient } from './components/clients/Path';
 
-function App() {
-  const [count, setCount] = useState(0)
+function App() {  
 
+  const [openCreateModal, setOpenCreateModal] = useState(false);  
+  const { findAllClients, deleteClient } = facilitaApi();
+  const [clients, setClients] = useState<IClient[]>([]);
+
+  const [openRoutesModal, setOpenRoutesModal] = useState(false);
+
+  const fetchClientData = async () => {
+    const response = await findAllClients()
+
+    if(response.status != 200)  {
+      return alert('Erro ao carregar clientes!')
+    }        
+    
+    setClients(response.data.items)        
+  }
+
+  useEffect(() => {
+    try {      
+      fetchClientData()
+    } catch(err) {
+      console.log(err)
+      alert("Erro ao carregar clientes")
+    }
+  }, [])
+
+  const handleDelete = async ({uuid}: {uuid: string}) => {
+    try {
+      const response = await deleteClient(uuid)
+
+      if (response.status !== 204) alert('Erro ao deletar cliente!')
+
+      fetchClientData()
+    } catch(err) {
+      alert('Erro ao deletar cliente!')
+    }
+  }
+
+  const handleCreate = async() => {
+    fetchClientData()
+    onCloseCreateModal()
+  }
+
+  const onOpenCreateModal = () => setOpenCreateModal(true);
+  const onCloseCreateModal = () => setOpenCreateModal(false);
+
+  const onOpenRoutesModal = () => setOpenRoutesModal(true);
+  const onCloseRoutesModal = () => setOpenRoutesModal(false);
+  
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <>            
+      <h1>Dashboard de clientes</h1>
+      
+      <div className='subtitle'>
+        <button onClick={onOpenCreateModal}> Adicionar Cliente </button>
+        <button onClick={onOpenRoutesModal}> Gerar rota </button>
+      </div>      
+      
+      <ClientsTable clients={clients} onDeleteClient={handleDelete}/>
+
+      <Modal classNames={{modal: 'modal'}} open={openCreateModal} onClose={onCloseCreateModal} center>
+        <CreateClient onCreated={handleCreate}/>        
+      </Modal>
+
+      <Modal classNames={{modal: 'modal'}} open={openRoutesModal} onClose={onCloseRoutesModal} center>
+        <PathsToClient />        
+      </Modal>
     </>
+
   )
 }
 
-export default App
+export default App;

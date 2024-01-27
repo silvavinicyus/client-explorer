@@ -5,38 +5,47 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.modal {
+  width: 15vw;
+  height: 36vh;  
+  border-radius: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.modal .form-body {
+  width: 100%;
+  height: 32vh;    
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.modal .form-body  p {  
+  text-align: center;
+  font-size: larger;
 }
 
-.card {
-  padding: 2em;
+.modal .form-body .label-input {
+  display: flex;
+  flex-direction: column;
 }
 
-.read-the-docs {
-  color: #888;
+.modal .form-body .label-input label {
+  margin-top: 0.5vh;
+  width: 100%;
+  height: 2vh;
+}
+
+.modal .form-body .label-input input {
+  margin-top: 0.5vh;
+  width: 100%;
+  height: 2vh;
+}
+
+.modal .form-body .action-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5vh;
 }
