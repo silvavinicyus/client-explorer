@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { facilitaApi } from "../../../services/axios";
-
+import './styles.css'
 interface ICreateClientProps {
   onCreated: () => void  
 }

@@ -1,3 +1,37 @@
-.action-buttons {
-  display: flex;    
+.form-body {
+  width: 100%;
+  height: 32vh;    
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-body  p {  
+  text-align: center;
+  font-size: larger;
+}
+
+.form-body .label-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-body .label-input label {
+  margin-top: 0.5vh;
+  width: 100%;
+  height: 2vh;
+}
+
+.form-body .label-input input {
+  margin-top: 0.5vh;
+  width: 100%;
+  height: 2vh;
+}
+
+.form-body .action-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5vh;
 }

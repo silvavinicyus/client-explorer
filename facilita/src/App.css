@@ -5,47 +5,8 @@
   text-align: center;
 }
 
-
 .modal {
   width: 15vw;
   height: 36vh;  
   border-radius: 10px;
-}
-
-.modal .form-body {
-  width: 100%;
-  height: 32vh;    
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal .form-body  p {  
-  text-align: center;
-  font-size: larger;
-}
-
-.modal .form-body .label-input {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal .form-body .label-input label {
-  margin-top: 0.5vh;
-  width: 100%;
-  height: 2vh;
-}
-
-.modal .form-body .label-input input {
-  margin-top: 0.5vh;
-  width: 100%;
-  height: 2vh;
-}
-
-.modal .form-body .action-buttons {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5vh;
 }
