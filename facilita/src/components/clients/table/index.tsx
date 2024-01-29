@@ -1,13 +1,19 @@
-import { IClient } from '../../../interfaces/iClient'
-import './styles.css'
 import { MdDelete } from "react-icons/md";
+import { IClient } from '../../../interfaces/iClient';
+import { TablePagination } from '../../pagination';
+import './styles.css';
 
 interface IClientsTableProps {
   clients: IClient[]
   onDeleteClient: ({uuid}: {uuid: string}) => void
+  onLeft: () => void
+  onRight: () => void
+  onChangeCount: (count: number) => void
+  currentPage: number
+  currentCount: number
 }
 
-const ClientsTable = ({onDeleteClient, clients}: IClientsTableProps) => {
+const ClientsTable = ({onDeleteClient, clients, onRight, onLeft, currentCount, currentPage, onChangeCount}: IClientsTableProps) => {    
 
   return (
     <>
@@ -16,7 +22,7 @@ const ClientsTable = ({onDeleteClient, clients}: IClientsTableProps) => {
           <tr>
             <th> ID </th>
             <th> Nome </th>
-            <th> Email </th>
+            <th className="email-column"> Email </th>
             <th> Telefone </th>
             <th> Endereço </th>
             <th> Data de criação </th>
@@ -47,17 +53,19 @@ const ClientsTable = ({onDeleteClient, clients}: IClientsTableProps) => {
                     {new Date(client.created_at).toLocaleDateString()}
                   </td>
                   <td>
-                    <MdDelete onClick={() => onDeleteClient({uuid: client.uuid})}/>
+                    <MdDelete className='delete-button' onClick={() => onDeleteClient({uuid: client.uuid})}/>
                   </td>
                 </tr>             
               )
             })
           }
-        </tbody>
+        </tbody>        
       </table>
+      
+      <TablePagination onRight={onRight} onLeft={onLeft} currentPage={currentPage} currentCount={currentCount} onChangeCount={onChangeCount}/>        
     </>
   )
 }
 
 
-export { ClientsTable }
+export { ClientsTable };

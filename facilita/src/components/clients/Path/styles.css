@@ -1,0 +1,13 @@
+.body-path {
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+
+.title {
+  text-align: center;
+  font-size: 25px;
+}
+
+.description {
+  text-align: justify;  
+}

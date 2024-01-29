@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { facilitaApi } from "../../../services/axios"
 import { IClient } from "../../../interfaces/iClient";
+import './styles.css'
 
 const PathsToClient = () => {
   const { getRoutes } = facilitaApi();
@@ -34,11 +35,22 @@ const PathsToClient = () => {
       {        
         isLoading 
           ? <h1>Carregando rota...</h1> 
-          : clients.map((client) => (
-              <h3>
-                { client.address }
-              </h3>
-            ))
+          : 
+          <div className="body-path">
+            <p className="title">
+              Rota              
+            </p>
+
+            <p className="description">Para visitar todos os clientes siga a seguinte rota: </p>
+
+            {
+              clients.map((client, index) => (
+                <p key={client.id}>
+                  {index+1}º: {client.name} no endereço {client.address}
+                </p>
+              ))
+            }
+          </div>
       }      
     </>
   ) 

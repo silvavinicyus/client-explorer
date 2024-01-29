@@ -1,0 +1,16 @@
+.buttons {
+  display: flex;
+  flex-direction: row;  
+  height: 1vh;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2vh;
+}
+
+.left-button .right-button {
+  cursor: pointer;
+}
+
+ .count {
+  padding-left: 0.3vw;
+}

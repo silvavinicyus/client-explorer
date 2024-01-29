@@ -15,7 +15,8 @@ function App() {
   const [openCreateModal, setOpenCreateModal] = useState(false);  
   const { findAllClients, deleteClient } = facilitaApi();
   const [clients, setClients] = useState<IClient[]>([]);
-
+  const [page, setPage] = useState(0)
+  const [count, setCount] = useState(10)
   const [openRoutesModal, setOpenRoutesModal] = useState(false);
 
   const fetchClientData = async (props: IFindAllClientsQueryStringProps) => {
@@ -27,19 +28,7 @@ function App() {
     
     setClients(response.data.items)        
   }
-
-  useEffect(() => {
-    try {      
-      fetchClientData({
-        page: 0,
-        count: 10
-      })
-    } catch(err) {
-      console.log(err)
-      alert("Erro ao carregar clientes")
-    }
-  }, [])
-
+  
   const handleDelete = async ({uuid}: {uuid: string}) => {
     try {
       const response = await deleteClient(uuid)
@@ -95,6 +84,18 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    try {      
+      fetchClientData({
+        page: page,
+        count: count
+      })
+    } catch(err) {
+      console.log(err)
+      alert("Erro ao carregar clientes")
+    }
+  },[count, page])
+
   const onOpenCreateModal = () => setOpenCreateModal(true);
   const onCloseCreateModal = () => setOpenCreateModal(false);
 
@@ -111,7 +112,21 @@ function App() {
       </div>      
 
       <SearchFilter onSearch={handleFilter}/> 
-      <ClientsTable clients={clients} onDeleteClient={handleDelete}/>
+      <ClientsTable clients={clients} 
+        onDeleteClient={handleDelete} 
+        currentCount={count} 
+        currentPage={page} 
+        onRight={() => {
+          setPage(page+1)          
+        }} 
+        onLeft={() => {
+          page > 0 && setPage(page-1)
+        }} 
+        onChangeCount={(value: number) => {
+          console.log("mudou")
+          setCount(value)          
+        }}
+      />
 
       <Modal classNames={{modal: 'modal'}} open={openCreateModal} onClose={onCloseCreateModal} center>
         <CreateClient onCreated={handleCreate}/>        
