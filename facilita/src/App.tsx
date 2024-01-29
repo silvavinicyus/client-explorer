@@ -4,11 +4,11 @@ import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import './App.css';
 import { CreateClient } from './components/clients/creation';
+import { PathsToClient } from './components/clients/path';
 import { ClientsTable } from './components/clients/table';
+import { SearchFilter } from './components/searchFilter';
 import { IClient, IFindAllClientsQueryStringProps } from './interfaces/iClient';
 import { facilitaApi } from './services/axios';
-import { PathsToClient } from './components/clients/Path';
-import { SearchFilter } from './components/searchFilter';
 
 function App() {  
 
@@ -127,7 +127,9 @@ function App() {
         <button onClick={onOpenCreateModal}> Adicionar Cliente </button>
         <button onClick={onOpenRoutesModal}> Gerar rota </button>
       </div>      
-      <SearchFilter onSearch={handleFilter}/> 
+      
+      <SearchFilter onSearch={handleFilter}/>
+
       <ClientsTable clients={clients} 
         onDeleteClient={handleDelete} 
         pagination={
@@ -139,7 +141,7 @@ function App() {
               validatePageChange(pageResult) && setPage(pageResult)
             },
             onLeft: () => {
-              const pageResult = page-1
+            const pageResult = page-1
               validatePageChange(pageResult) && setPage(pageResult)
             },
             onChangeCount: (value: number) => {          
@@ -147,8 +149,8 @@ function App() {
             }
           }
         }                
-      />
-
+      />                   
+      
       <Modal classNames={{modal: 'modal'}} open={openCreateModal} onClose={onCloseCreateModal} center>
         <CreateClient onCreated={handleCreate}/>        
       </Modal>

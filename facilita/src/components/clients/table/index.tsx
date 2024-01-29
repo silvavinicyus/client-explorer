@@ -24,7 +24,7 @@ const ClientsTable = ({onDeleteClient, clients, pagination}: IClientsTableProps)
       <table>
         <thead>
           <tr className="column-titles">
-            <th> ID </th>
+            <th className="id-column"> ID </th>
             <th> Nome </th>
             <th className="email-column"> Email </th>
             <th> Telefone </th>
@@ -34,7 +34,7 @@ const ClientsTable = ({onDeleteClient, clients, pagination}: IClientsTableProps)
           </tr>
         </thead>
         <tbody>        
-          {
+          {            
             clients.map((client) => {
               return (
                 <tr key={client.id}>

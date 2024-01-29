@@ -10,11 +10,15 @@ tr, td {
 
 
 td, th {
-  padding-left: 1.5vb;
-  padding-right: 1.5vb;  
+  padding-left: .5vw;
+  padding-right: .5vw;  
 }
 
-th:not(:first-child):not(.email-column) {
+.id-column {
+  width: 2vw;
+}
+
+th:not(.email-column):not(.id-column) {
   width: 7vw;
 }
 
