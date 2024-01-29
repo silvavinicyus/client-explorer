@@ -18,15 +18,17 @@ function App() {
   const [page, setPage] = useState(0)
   const [count, setCount] = useState(10)
   const [openRoutesModal, setOpenRoutesModal] = useState(false);
-
+  const [totalClients, setTotalClients] = useState(0)
+  
   const fetchClientData = async (props: IFindAllClientsQueryStringProps) => {
     const response = await findAllClients(props)
 
     if(response.status != 200)  {
-      return alert('Erro ao carregar clientes!')
+      alert('Erro ao carregar clientes, tente novamente mais tarde!')
     }        
     
-    setClients(response.data.items)        
+    setTotalClients(response.data.count)
+    setClients(response.data.items)
   }
   
   const handleDelete = async ({uuid}: {uuid: string}) => {
@@ -57,22 +59,22 @@ function App() {
       switch (target){
         case 'name':
           fetchClientData({
-            count: 10,
-            page: 0,
+            count: count,
+            page: page,
             name: value
           })
           break
         case 'email':
           fetchClientData({
-            count: 10,
-            page: 0,
+            count: count,
+            page: page,
             email: value
           })
           break
         case 'phone':
           fetchClientData({
-            count: 10,
-            page: 0,
+            count: count,
+            page: page,
             phone: value
           })
           break
@@ -84,7 +86,22 @@ function App() {
     }
   }
 
-  useEffect(() => {
+  const validatePageChange = (pageResult: number): boolean => {
+    const maximumPages = (totalClients / count % 2 === 0 ? totalClients / count : ((totalClients / count) + 1)) - 1
+
+
+    if (totalClients <= count) {
+      return false
+    }
+
+    if (pageResult < 0 || pageResult > maximumPages) {
+      return false
+    } 
+
+    return true
+  }
+
+  useEffect(() => {    
     try {      
       fetchClientData({
         page: page,
@@ -110,22 +127,26 @@ function App() {
         <button onClick={onOpenCreateModal}> Adicionar Cliente </button>
         <button onClick={onOpenRoutesModal}> Gerar rota </button>
       </div>      
-
       <SearchFilter onSearch={handleFilter}/> 
       <ClientsTable clients={clients} 
         onDeleteClient={handleDelete} 
-        currentCount={count} 
-        currentPage={page} 
-        onRight={() => {
-          setPage(page+1)          
-        }} 
-        onLeft={() => {
-          page > 0 && setPage(page-1)
-        }} 
-        onChangeCount={(value: number) => {
-          console.log("mudou")
-          setCount(value)          
-        }}
+        pagination={
+          {
+            currentCount: count,
+            currentPage: page,
+            onRight: () => {
+              const pageResult = page+1
+              validatePageChange(pageResult) && setPage(pageResult)
+            },
+            onLeft: () => {
+              const pageResult = page-1
+              validatePageChange(pageResult) && setPage(pageResult)
+            },
+            onChangeCount: (value: number) => {          
+              setCount(value)
+            }
+          }
+        }                
       />
 
       <Modal classNames={{modal: 'modal'}} open={openCreateModal} onClose={onCloseCreateModal} center>

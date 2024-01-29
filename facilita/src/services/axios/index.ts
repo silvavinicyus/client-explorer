@@ -28,9 +28,7 @@ const facilitaApi = () => {
         return acc + `${element}=${props[element as keyof IFindAllClientsQueryStringProps]}`
       }
       return acc+`&${element}=${props[element as keyof IFindAllClientsQueryStringProps]}`
-    }, '')
-
-    console.log(queryParams)
+    }, '')    
 
     return api.get(`/clients?${queryParams}`)
   }

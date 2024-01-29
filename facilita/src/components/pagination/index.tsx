@@ -12,11 +12,9 @@ interface ITablePaginationProps {
 }
 
 const TablePagination = ({ onChangeCount, onLeft, onRight, currentPage, currentCount }: ITablePaginationProps) => {  
-  const [value, setValue] = useState(currentCount)  
-
-  const handleChange = (event: SelectChangeEvent) => {
+  const [value, setValue] = useState(currentCount)    
+  const handleChange = (event: SelectChangeEvent) => {    
     setValue(Number(event.target.value))
-
     onChangeCount(Number(event.target.value))
   }
 
@@ -24,14 +22,16 @@ const TablePagination = ({ onChangeCount, onLeft, onRight, currentPage, currentC
     <>
       <div className="buttons"> 
         <FaAngleLeft className="left-button" onClick={onLeft}/>
-        <span>{currentPage+1}</span>
+        <span>{currentPage+1}</span>        
         <FaAngleRight className="right-button" onClick={onRight} />
+
         <Select
           id="count-pagination-select"
           onChange={handleChange}
           size="small"
           displayEmpty
           value=""
+          style={{height: 25}}         
         >
           <MenuItem value="">
             <em>{value}</em>

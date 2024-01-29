@@ -3,9 +3,7 @@ import { IClient } from '../../../interfaces/iClient';
 import { TablePagination } from '../../pagination';
 import './styles.css';
 
-interface IClientsTableProps {
-  clients: IClient[]
-  onDeleteClient: ({uuid}: {uuid: string}) => void
+interface IPaginationProps {
   onLeft: () => void
   onRight: () => void
   onChangeCount: (count: number) => void
@@ -13,13 +11,19 @@ interface IClientsTableProps {
   currentCount: number
 }
 
-const ClientsTable = ({onDeleteClient, clients, onRight, onLeft, currentCount, currentPage, onChangeCount}: IClientsTableProps) => {    
+interface IClientsTableProps {
+  clients: IClient[]
+  onDeleteClient: ({uuid}: {uuid: string}) => void
+  pagination: IPaginationProps
+}
+
+const ClientsTable = ({onDeleteClient, clients, pagination}: IClientsTableProps) => {    
 
   return (
     <>
       <table>
         <thead>
-          <tr>
+          <tr className="column-titles">
             <th> ID </th>
             <th> Nome </th>
             <th className="email-column"> Email </th>
@@ -62,7 +66,7 @@ const ClientsTable = ({onDeleteClient, clients, onRight, onLeft, currentCount, c
         </tbody>        
       </table>
       
-      <TablePagination onRight={onRight} onLeft={onLeft} currentPage={currentPage} currentCount={currentCount} onChangeCount={onChangeCount}/>        
+      <TablePagination onRight={pagination.onRight} onLeft={pagination.onLeft} currentPage={pagination.currentPage} currentCount={pagination.currentCount} onChangeCount={pagination.onChangeCount}/>        
     </>
   )
 }

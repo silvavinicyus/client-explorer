@@ -26,20 +26,16 @@ table {
   width: 100%;  
 }
 
-table tr {
-  background-color: antiquewhite;
+.column-titles {
+  background-color: #63b8f0;
 }
 
-table tr:nth-child(odd) td{
+tr:nth-child(odd):not(.column-titles){
   background-color: aquamarine;
 }
 
-table tr:nth-child(even) td{
+tr:nth-child(even):not(.column-titles){
   background-color: antiquewhite;
-}
-
-table tr td th {
-  border-color: #3498DB;
 }
 
 .delete-button:hover {

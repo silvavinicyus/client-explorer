@@ -12,9 +12,7 @@ const SearchFilter = ({onSearch}: ISearchFilterProps) => {
   const [value, setValue] = useState('name');
 
   const handleSearch = () => {
-    onSearch({target: target, value: value})
-
-    console.log({target: target, value: value})
+    onSearch({target: target, value: value})    
   }
 
   return (
