@@ -75,9 +75,7 @@ export class ClientRepository implements IClientRepository {
     const result = await this.queryExecutor({query, parameters: queryParameters})
 
     const countQuery = `SELECT count(*) FROM clients ${where}`
-    const countResult = await this.queryExecutor({query: countQuery, parameters})    
-
-    console.log({countQuery, parameters, countResult: countResult.rows})
+    const countResult = await this.queryExecutor({query: countQuery, parameters})     
 
     const clients = ClientMapper.toEntityArray(result.rows)
 
