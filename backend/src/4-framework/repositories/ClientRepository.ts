@@ -68,14 +68,16 @@ export class ClientRepository implements IClientRepository {
 
     const { where, parameters } = this.containsWhereBuilder(input.filters.contains)    
 
-    const query = `SELECT * FROM clients ${where} ORDER BY created_at LIMIT $${parameters.length+1} OFFSET $${parameters.length+2}`    
-    
-    const queryParameters = [...parameters, input.pagination.count, offset]    
+    const query = `SELECT * FROM clients ${where} ORDER BY created_at LIMIT $${parameters.length+1} OFFSET $${parameters.length+2}`        
+          
+    const queryParameters = [...parameters, input.pagination.count, offset]
 
     const result = await this.queryExecutor({query, parameters: queryParameters})
 
-    const countQuery = 'SELECT count(id) as count from clients'
-    const countResult = await this.queryExecutor({query: countQuery, parameters: []})    
+    const countQuery = `SELECT count(*) FROM clients ${where}`
+    const countResult = await this.queryExecutor({query: countQuery, parameters})    
+
+    console.log({countQuery, parameters, countResult: countResult.rows})
 
     const clients = ClientMapper.toEntityArray(result.rows)
 
@@ -109,12 +111,6 @@ export class ClientRepository implements IClientRepository {
     await this.queryExecutor({query, parameters})    
     return void 0
   }
-
-  // async queryExecutor({query, parameters}: IQueryExecutor): Promise<QueryResult<any>> {                         
-  //   await db.connect()        
-  //   const result = await this.db.query(query, parameters)                
-  //   return result
-  // }
 
   async queryExecutor({query, parameters}: IQueryExecutor): Promise<QueryResult<any>> {
     let pool;
