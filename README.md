@@ -86,21 +86,34 @@ A arquitetura escolhida foi baseada na arquitetura limpa, apesar de não aplicar
   Apesar de não ser das melhores práticas, o arquivo .env foi enviado junto com o projeto contendo as variáveis necessárias para o sistema funcionar corretamente. Caso seja necessário a alteração de alguma variável, é só alterar direto no <a href="https://github.com/silvavinicyus/client-explorer/blob/master/backend/.env"> arquivo </a>.
 </li>
 
-### Execução
- Para a execução do projeto é necessária a execução dos seguintes passos: 
+### Instalação e execução
+ Para a instalação do projeto é necessária a execução dos seguintes passos: 
    <li> 
      1 - Execução do arquivo DDL disponibilidado <a href="https://github.com/silvavinicyus/client-explorer/blob/master/backend/sql/db.sql"> aqui </a>  para realizar a criação do banco de dados e das tabelas. 
    </li> 
+   
    <li>
-     2 - Instação das dependências do projeto, executando o seguinte comando no terminal:      
+     2 - Clonar o presente projeto em sua máquia.
+
+    git clone git@github.com:silvavinicyus/client-explorer.git
+    
+   </li>
+   
+   <li>
+     3 - Via terminal navegar para a página "backend" da aplicação.
+
+    cd client-explorer/backend
+    
+   </li>
+   
+   <li>
+     4 - Fazer a instalação das dependências do projeto, executando o seguinte comando no terminal:      
    </li>
         
      yarn install     
      
-   <li>
-     3 - Após o fim da instalação, executar o seguinte comando no terminal para executar o projeto e iniciar a API:      
-   </li>
-        
+ Após a instalação e preparação do ambiente, para a execução do projeto somente é necessário a execução do seguinte comando no terminal:
+ 
      yarn dev     
 
 ### Testes
@@ -188,16 +201,20 @@ A arquitetura escolhida foi baseada na arquitetura limpa, apesar de não aplicar
   </tbody>
 </table>
 
-### Execução
- Para a execução do projeto é necessária a execução dos seguintes passos: 
+### Instalação e execução
+ Para a instalação do projeto, considerando que o projeto do git já foi clonado em sua máquina, siga os passos:      
    <li>
-     1 - Instação das dependências do projeto, executando o seguinte comando no terminal:      
+     1 - Volte para a pasta onde o projeto foi clonado e execute o seguinte comando:
+   </li>
+
+    cd client-explorer/frontend  
+
+   <li>
+     2 - Instação das dependências do projeto, executando o seguinte comando no terminal:      
    </li>
         
-     yarn install     
+     yarn install  
      
-   <li>
-     2 - Após o fim da instalação, executar o seguinte comando no terminal para executar o projeto e iniciar a API:      
-   </li>
-        
-     yarn dev     
+   Após a instalação e preparação do ambiente, para a execução do projeto somente é necessário a execução do seguinte comando no terminal:
+ 
+     yarn dev      
