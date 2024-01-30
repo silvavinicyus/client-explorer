@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/jest": "^29.5.11",
     "@types/pg": "^8.11.0",
+    "@types/uuid": "^9.0.8",
     "class-validator": "^0.14.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
@@ -24,7 +25,8 @@
     "pg-promise": "^11.5.4",
     "reflect-metadata": "^0.2.1",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
