@@ -106,7 +106,7 @@ A arquitetura escolhida foi baseada na arquitetura limpa, apesar de não aplicar
 ### Testes
  Após a instalação das dependências do projeto, para executar os testes basta executar o seguinte comando no terminal:
 
-     yarn tun test     
+     yarn run test     
  
  
 ### Tecnologias 
