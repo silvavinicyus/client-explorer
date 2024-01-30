@@ -1,6 +1,4 @@
-CREATE DATABASE IF NOT EXISTS client-explorer;
-
-USE client-explorer;
+CREATE DATABASE client_explorer;
 
 DROP TABLE IF EXISTS clients;
 
