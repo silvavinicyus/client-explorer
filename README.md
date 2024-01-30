@@ -180,15 +180,15 @@ A arquitetura foi uma baseada na arquitetura limpa, apesar de não aplicar todos
 </table>
 
 ### Execução
- Para a execução do projeto são necessários apenas dois passos: 
+ Para a execução do projeto é necessária a execução dos seguintes passos: 
    <li>
-     2 - Instação das dependências do projeto, executando o seguinte comando no terminal:      
+     1 - Instação das dependências do projeto, executando o seguinte comando no terminal:      
    </li>
         
      yarn install     
      
    <li>
-     3 - Após o fim da instalação, executar o seguinte comando no terminal para executar o projeto e iniciar a API:      
+     2 - Após o fim da instalação, executar o seguinte comando no terminal para executar o projeto e iniciar a API:      
    </li>
         
      yarn dev     
