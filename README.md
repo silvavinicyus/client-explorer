@@ -102,6 +102,11 @@ A arquitetura foi uma baseada na arquitetura limpa, apesar de não aplicar todos
    </li>
         
      yarn dev     
+
+### Testes
+ Após a instalação das dependências do projeto, para executar os testes basta executar o seguinte comando no terminal:
+
+     yarn tun test     
  
  
 ### Tecnologias 
@@ -126,6 +131,10 @@ A arquitetura foi uma baseada na arquitetura limpa, apesar de não aplicar todos
     <tr>
       <td> PostgreSQL </td>
       <td> 16.0-1 </td>
+    </tr>
+    <tr>
+      <td> Jest </td>
+      <td> 29.5.0 </td>
     </tr>
   </tbody>
 </table>
