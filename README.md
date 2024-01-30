@@ -70,7 +70,7 @@
  Para a geração da rota foi utilizado o método de cálculo do vizinho mais próximo, baseado no ponto inicial (0,0), utilizando o método euclidiano de cálculo da distância entre dois pontos. Essa não é a melhor abordagem para a solução desse problema, porém é a mais simples entre as possíveis. Como estamos falando de um cálculo onde os nós (clientes) não possuem restrição de rota, acredito que essa seja uma solução com uma boa taxa de acerto, com um baixo custo performático e com pouca possibilidade de de possíveis futuras manutenções.
 
  ### Arquitetura
-A arquitetura foi uma baseada na arquitetura limpa, apesar de não aplicar todos os conceitos da arquitetura limpa. Onde o sistema é dividido em camadas, com as seguintes responsabilidades:
+A arquitetura escolhida foi baseada na arquitetura limpa, apesar de não aplicar todos os conceitos da arquitetura limpa. Onde o sistema é dividido em camadas, com as seguintes responsabilidades:
 <ul>
   <li> A primeira camada "domain" tem a responsabilidade de guardar as entidades que reprentam o domínio da aplicação. </li>
   <li> A segunda camada "business" tem a responsabilidade de criar os DTOs (Data Transfer Object), os contratos de funcionamento de serviços e repositórios, os possíveis erros dos useCases, além dos próprios useCases. </li>
@@ -106,7 +106,7 @@ A arquitetura foi uma baseada na arquitetura limpa, apesar de não aplicar todos
 ### Testes
  Após a instalação das dependências do projeto, para executar os testes basta executar o seguinte comando no terminal:
 
-     yarn tun test     
+     yarn run test     
  
  
 ### Tecnologias 
