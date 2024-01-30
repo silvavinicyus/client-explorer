@@ -207,7 +207,7 @@ A arquitetura escolhida foi baseada na arquitetura limpa, apesar de não aplicar
      1 - Volte para a pasta onde o projeto foi clonado e execute o seguinte comando:
    </li>
 
-    cd client-explorer/frontend  
+    cd client-explorer/facilita  
 
    <li>
      2 - Instação das dependências do projeto, executando o seguinte comando no terminal:      
