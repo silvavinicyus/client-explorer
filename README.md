@@ -5,7 +5,7 @@
     Backend:  Um backend responsável por receber, tratar e armazenar informações de clientes.
   </li>
   <li>
-    Frontend: Um frontend responsável por mostrar graficamente as informações dos clientes, possibilitar a deleção e a inserção de informações de novos clientes.
+    Frontend: Um frontend responsável por mostrar as informações dos clientes, possibilitar a deleção e a inserção de informações de novos clientes.
   </li>
 </ul>
 
