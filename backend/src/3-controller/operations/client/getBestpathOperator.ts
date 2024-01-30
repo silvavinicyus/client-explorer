@@ -1,4 +1,4 @@
-import { ITravelingSalesmanServiceToken, ITravelingSalesmangService } from "@business/services/tsp/iTsp";
+import { ITravelingSalesmanServiceToken, ITravelingSalesManService } from "@business/services/tsp/iTsp";
 import { FindAllClientsWithoutPaginationUseCase } from "@business/useCases/client/findAllClientsWithousPagiUseCase";
 import { IClientEntity } from "@domain/entities/client";
 import { IError } from "@shared/IError";
@@ -12,7 +12,7 @@ export class GetBestPathOperator extends AbstractOperator<void, Either<IError, I
     @inject(FindAllClientsWithoutPaginationUseCase)
     private findAllClients: FindAllClientsWithoutPaginationUseCase,
     @inject(ITravelingSalesmanServiceToken)
-    private travelingSalesmanService: ITravelingSalesmangService
+    private travelingSalesmanService: ITravelingSalesManService
   ){
     super()
   }

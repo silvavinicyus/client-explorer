@@ -1,9 +1,9 @@
-import { IClientAddress, ITravelingSalesmangService } from "@business/services/tsp/iTsp";
+import { IClientAddress, ITravelingSalesManService } from "@business/services/tsp/iTsp";
 import { IClientEntity } from "@domain/entities/client";
 import { injectable } from "inversify";
 
 @injectable()
-export class TravelingSalesmanService implements ITravelingSalesmangService {  
+export class TravelingSalesmanService implements ITravelingSalesManService {  
   bestPath(clients: IClientEntity[]): IClientAddress[] {
     let clientsAdress: IClientAddress[] = clients.map((client) => {
       const address = client.address.replace(' ', '').split(',')

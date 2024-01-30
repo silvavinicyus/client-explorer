@@ -8,6 +8,6 @@ export interface IClientAddress {
   y: number
 }
 
-export interface ITravelingSalesmangService {
+export interface ITravelingSalesManService {
   bestPath(clients: IClientEntity[]): IClientAddress[]
 }
