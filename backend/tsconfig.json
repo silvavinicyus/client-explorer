@@ -16,7 +16,7 @@
     "allowSyntheticDefaultImports": true,
     
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "jest-setup-file.ts", "jest.config.ts"],
   "exclude": [
     "node_modules/**/*",    
     ".webpack/**/*",
